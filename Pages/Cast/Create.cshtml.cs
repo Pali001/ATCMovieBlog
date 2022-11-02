@@ -21,7 +21,7 @@ namespace ATCMovieBlog.Pages.Cast
 
         public IActionResult OnGet()
         {
-        ViewData["Movieid"] = new SelectList(_context.Movie, "Id", "Id");
+        ViewData["Movieid"] = new SelectList(_context.Movie, "Id", "Title");
             return Page();
         }
 

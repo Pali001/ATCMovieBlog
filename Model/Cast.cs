@@ -7,7 +7,7 @@
         public String? LastName { get; set; }
         public String? ScreenName { get; set; }
 
-        public Guid? Movieid { get; set; }
+        public Guid? Movieid { get; set; } 
         public Movie? Movie { get; set; }
 
     }

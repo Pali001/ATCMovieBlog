@@ -4,7 +4,41 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+<div class="contaniner">
+    <div class="row">
+
+        @foreach (var item in Model.AllResults)
+        {
+            var PosterPath = "https://image.tmdb.org/t/p/w200/" + item.poster_path;
+
+
+            <div class="card" style="width : 18rem;">
+
+                <img class="card-img-top" src=@PosterPath alt="Card image cap" />
+                <div class="card-body">
+                    <h5 class="card-title">@item.title</h5>
+                    <p class="card-text">@item.overview </p>
+                    <p class="card-text">@item.release_date </p>
+                    @*<p> @item.overview</p>*@
+                    @*//<p> @item.popularity</p>*@
+
+
+
+
+                </div>
+            </div>
+        }
+
+        </div>
+    </div>
+
+
+            @*<p class="Movie">
+            <h1 class="display-6">Movie Database</h1>
+            ViewData["data"].
+            <img class="" src="@Model.poster_()" />
+            <div class="movieinfo">
+                <h1>@Model.Data.title</h1>
+                <p>Rating:>@Model.Data.vote_average</p>
+                <h4>@Model.Data.overview</h4>*@

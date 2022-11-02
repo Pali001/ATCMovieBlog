@@ -46,4 +46,12 @@
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Movie?.Id">Edit</a> |
     <a asp-page="./Index">Back to List</a>
+    <p>
+        @foreach (var cast in Model.Cast)
+        {
+            <p>@cast.FirstName @cast.LastName</p>
+        }
+
+
+    </p>
 </div>

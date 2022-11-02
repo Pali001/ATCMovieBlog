@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ATCMovieBlog.Data;
 using ATCMovieBlog.Model;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace ATCMovieBlog.Pages.Movies
 {
@@ -20,6 +21,8 @@ namespace ATCMovieBlog.Pages.Movies
         }
 
       public Movie Movie { get; set; }
+
+      public IEnumerable<Model.Cast> Cast { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -36,6 +39,7 @@ namespace ATCMovieBlog.Pages.Movies
             else 
             {
                 Movie = movie;
+                Cast = await _context.Cast.Where(c => c.Movieid == movie.Id).ToListAsync();
             }
             return Page();
         }

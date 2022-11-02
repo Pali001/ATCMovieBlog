@@ -36,7 +36,7 @@ namespace ATCMovieBlog.Pages.Cast
                 return NotFound();
             }
             Cast = cast;
-           ViewData["Movieid"] = new SelectList(_context.Movie, "Id", "Id");
+           ViewData["Movieid"] = new SelectList(_context.Movie, "Id", "Title");
             return Page();
         }
 
