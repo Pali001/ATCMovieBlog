@@ -49,9 +49,23 @@
     <p>
         @foreach (var cast in Model.Cast)
         {
-            <p>@cast.FirstName @cast.LastName</p>
-        }
+        <p>@cast.FirstName @cast.LastName</p>
+    }
 
 
-    </p>
-</div>
+        </p>
+    </div>
+    @if (Model.Root != null)
+    {
+        <h1>API</h1>
+        <div class="card" style="width : 18rem;">
+            <img class="card-img-top" src=@($"https://image.tmdb.org/t/p/w200/{Model.Root.poster_path}") alt="Card image cap" />
+            <div class="card-body">
+                <h5 class="card-title">@Model.Root.title</h5>
+                <p class="card-text">@Model.Root.release_date </p>
+                <p> @Model.Root.overview</p>
+                @*<p> @Model.Root.popularity</p>*@
+            </div>
+        </div>
+    }
+

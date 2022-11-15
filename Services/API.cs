@@ -1,16 +1,18 @@
 ﻿using Newtonsoft.Json;
+using ATCMovieBlog.DTO;
 using ATCMovieBlog.MovieData;
 using ATCMovieBlog.Model;
 using static System.Net.WebRequestMethods;
 using RestSharp;
 using System.Collections.Generic;
+using System.Security.Policy;
 
 namespace ATCMovieBlog.Services
 {
     public class API : IAPI
     {
      
-        public async Task<Root> MovieAPI()
+        public async Task<MovieData.Root> MovieAPI()
 
         {
 
@@ -34,14 +36,25 @@ namespace ATCMovieBlog.Services
             RestRequest request = new RestRequest();
             RestResponse response = client.Execute(request);
             request.Method = Method.Get;
-            Root root = JsonConvert.DeserializeObject<Root>(response.Content);
-
+            MovieData.Root root = JsonConvert.DeserializeObject<MovieData.Root>(response.Content);
 
 
             return root;
         }
         ////https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc?api_key=d817fd94e001c3b41fa48d7b2d4be5e7<api_key=d817fd94e001c3b41fa48d7b2d4be5e7&/discover/movie?sort_by=popularity.desc
-        //https://api.themoviedb.org/3/movie/
+        public async Task<DTO.Root> MovieAPI(string movieID)
+        {
+            string baseUrl = "https://api.themoviedb.org/3/movie/";
+            string midUrl = "?api_key=";
+            string apiKey = "d817fd94e001c3b41fa48d7b2d4be5e7";
+            string url = $"{baseUrl}{movieID}{midUrl}{apiKey}";
+
+            HttpClient client = new HttpClient();
+            string responseBody = await client.GetStringAsync(url);
+            DTO.Root root = JsonConvert.DeserializeObject<DTO.Root>(responseBody);
+            return root;
+        }
+
     }
 }
 //https://api.themoviedb.org/3/search/movie?api_key={api_key}&query=Jack+Reacher

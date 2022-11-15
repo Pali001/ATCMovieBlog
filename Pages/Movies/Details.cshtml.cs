@@ -5,19 +5,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ATCMovieBlog.Data;
 using ATCMovieBlog.Model;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using ATCMovieBlog.Services;
+using ATCMovieBlog.DTO;
 
 namespace ATCMovieBlog.Pages.Movies
 {
     public class DetailsModel : PageModel
     {
         private readonly ATCMovieBlog.Data.ATCMovieBlogContext _context;
+        private readonly IAPI _api;
+        public Root Root;
 
-        public DetailsModel(ATCMovieBlog.Data.ATCMovieBlogContext context)
+
+        public DetailsModel(ATCMovieBlog.Data.ATCMovieBlogContext context, IAPI api)
         {
             _context = context;
+            _api = api;
         }
 
       public Movie Movie { get; set; }
@@ -40,8 +45,31 @@ namespace ATCMovieBlog.Pages.Movies
             {
                 Movie = movie;
                 Cast = await _context.Cast.Where(c => c.Movieid == movie.Id).ToListAsync();
+                // here
+                Root = _api.MovieAPI(getMovieID(movie.Title)).Result;
             }
             return Page();
+        }
+
+        private string getMovieID(string name)
+        {
+            switch (name)
+            {
+                case "Star Trek":
+                    return "13475";
+
+                case "Don't look Up":
+                    return "646380";
+                case "Snowpiercer":
+                    return "110415";
+
+                case "Star Trek 2":
+                    return "154";
+                default:
+                    // Fatal Error
+                    return "55186";
+
+            }
         }
     }
 }
